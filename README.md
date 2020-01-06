@@ -6,7 +6,7 @@ The file `Lab_01_Activities.Rmd` is a template for the exercises in Lab #1 to us
 RMarkdown to do the following exercises from Chapter 2 in the textbook 
 _Global Warming: Understanding the Forecast_.
 
-The lab is due at 9:00 AM on Monday, Sept. 3.
+The lab is due by 11:59 pm on Thursday Jan. 16.
 
 The file contains exercises 2.1--2.7.
 
