@@ -2,8 +2,8 @@
 title: "EES 3310/5310 Lab #1"
 subtitle: "Exercises from Chapter 2"
 author: "put your name here"
-date: "Lab: Monday Aug. 27, 2018. Due: Monday Sept. 3 at 9:00 AM"
-fontfamily: "newtxtext,newtxmath"
+date: "Lab: Monday Jan. 6, 2020. Due: Thursday Jan 16 by 11:59 pm"
+fontfamily: "mathptmx"
 fontsize: "12pt"
 output:
   pdf_document: default
