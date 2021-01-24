@@ -1,6 +1,9 @@
 # Assignment for EES 3310/5310 Lab #1
 
+
+<!-- badges: start -->
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+<!-- badges: end -->
 
 The file `lab-01-report.Rmd` is a template for the exercises in Lab #1 to use
 RMarkdown.

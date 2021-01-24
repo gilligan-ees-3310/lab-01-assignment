@@ -22,3 +22,10 @@ jobs:
       - name: Render Rmarkdown files
         run:
           Rscript -e 'rmarkdown::render("lab-01-report.Rmd", output_format = "html_document", output_dir = ".test-output")'
+      - name: Commit results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git commit .test-output/* -m "Re-build Rmarkdown files" || echo "No changes to commit."
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
