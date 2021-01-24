@@ -14,21 +14,35 @@ The answers to exercise 2.1 are given as an example of how to include
 answers in RMarkdown.
 
 * Graduate students should answer all of the exercises. 
-* Undergraduates should answer exercises 2.2, 2.4, 2.5, and 2.7.
+* Undergraduates should try to answer exercises 2.2, 2.4, 2.5, and 2.7.
+
+For the first week of lab, full credit will be given for trying this, even 
+if you can't get it to work or if you get the wrong answers.
 
 ## Instructions:
 
-* Clone a local copy of the file repository from github.
-* In your local repository, answer the exercises in the template
-  `Lab_01_Activities.Rmd`.
-* When you are done, knit your `.Rmd` file into a PDF file.
-* Use git to commit your changes (including the edits to `Lab_01_Activities.Rmd`
-  and the new PDF file) to your local git repository.
-* Push the changes from your local git repository to github.
+* Accept the assignment in GitHub Classroom.
+* On your web browser, go to the repository for the assignment.
+* In RStudio, create a new project, choose "Version Control". Then choose 
+  "Git" and paste the URL for your assignment repository.
+* In your RStudio project, use the template "`lab-01-activities.Rmd`" and 
+  fill in text and R code to answer the questions. 
+  There is a worked example to help you understand what you need to do.
+* When you are done, knit your `.Rmd` file into a PDF file or a Word (.docx)
+  file.
+* Use git to commit your changes (including the edits to `lab-01-activities.Rmd`
+  and the new `.pdf` or `.docx` file) to your local git repository.
+  You can do this from the "Git" tab in RStudio.
+* Push the changes from your local git repository to GitHub. You can do this 
+  using the "Pusl" button (the blue up arrow) in the "Git" tab in RStudio.
+* When you are finished with the lab, or have gotten as far as you can go,
+  go to the Brightspace discussion board and post a comment about your
+  experience using these tools (R, RStudio, and Git) to do these exercises.
+  
+  Comment about what was clear, what was unclear or difficult, and any ideas 
+  you have about what would make it easier to do these kinds of labs in the 
+  future.
 
-    The last changes that you push before the due date 
-    (Monday Sept. 3 at 9:00 am) will be graded.
-
-I advise using git to commit changes frequently as you work and push those commits
-to github.
+As you work on these projects, I advise using git to commit changes frequently 
+as you work and push those commits to GitHub.
 

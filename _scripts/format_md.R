@@ -1,5 +1,4 @@
 library(tidyverse)
-library(stringr)
 
 format_engr = function(x, digits = 6) {
   x_sci <- formatC(x, digits = digits, format = "e", flag = "#",
@@ -41,31 +40,41 @@ format_engr = function(x, digits = 6) {
 format_md = function(x, digits = NULL,
                      format = c('normal', 'auto', 'scientific',
                                 'engineering'),
-                     comma = FALSE) {
+                     comma = FALSE,
+                     output_format = c("markdown", "latex")) {
   format = match.arg(format)
+  output_format = match.arg(output_format)
   mark = ifelse(comma, ',', '')
 
-  fixup_scientific = function(s) {
+  fixup_scientific = function(s, output_format = c("markdown", "latex")) {
+    output_format = match.arg(output_format)
+    if (output_format == 'markdown') {
     str_replace_all(s,  c('\\+' = '',
-                          '[Ee](-?)0*([1-9][0-9]*)$' = '&times;10^\\1\\2^'))
+                          '[Ee](-?)0*(0|[1-9][0-9]*)$' = '&times;10^\\1\\2^'))
+    } else {
+      str_replace_all(s,  c('\\+' = '',
+                            '[Ee](-?)0*(0|[1-9][0-9]*)$' = '\\times 10^{\\1\\2}')) %>%
+        str_c("\\(", ., "\\)")
+    }
   }
 
   if (! is.null(digits)) x = signif(x, digits + 1)
   if (format == 'auto') {
-    fixed = formatC(x, digits = digits, format = 'fg', flag = '#',
+    fixed = formatC(x, digits = digits + 1, format = 'fg', flag = '#',
                     big.mark = mark)
     sci = formatC(x, digits = digits, format = 'e')
     formatted = ifelse(str_length(fixed) > getOption('scipen') + str_length(sci),
-                      fixup_scientific(sci), fixed)
+                      fixup_scientific(sci, output_format = output_format),
+                      fixed)
   } else if (format == "normal") {
-    formatted = formatC(x, digits = digits, format = 'fg', flag = '#',
+    formatted = formatC(x, digits = digits + 1, format = 'fg', flag = '#',
                         big.mark = mark)
   } else if (format == "scientific") {
     formatted = formatC(x, digits = digits, format = 'e') %>%
-      fixup_scientific()
+      fixup_scientific(output_format = output_format)
   } else if (format == "engineering") {
     formatted = format_engr(x, digits = digits) %>%
-      fixup_scientific()
+      fixup_scientific(output_format = output_format)
   }
   formatted
 }
