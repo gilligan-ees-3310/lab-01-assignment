@@ -1,7 +1,7 @@
 on:
   push:
-    paths:
-      - '**.Rmd'
+    branches:
+      - main
 
 name: Render Rmarkdown files
 
@@ -11,16 +11,13 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2 # This is important to set for `git diff-tree` to work below
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Install rmarkdown, remotes, and tidyverse
         run: |
           install.packages("remotes")
           remotes::install_cran(c("rmarkdown", "tidyverse"))
-          shell: Rscript {0}
+        shell: Rscript {0}
       - name: Render Rmarkdown files
-        run: |
-          RMD_PATH=($(git diff-tree --no-commit-id --name-only -r HEAD | grep '[.]Rmd$'))
-          Rscript -e 'for (file in commandArgs(TRUE)) rmarkdown::render(file, output_format = "html_document", output_dir = ".test-output"' ${RMD_PATH[*]}
+        run:
+          Rscript -e 'rmarkdown::render("lab-01-report.Rmd", output_format = "html_document", output_dir = ".test-output"'
