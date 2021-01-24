@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - main
+      - master
 
 name: Render Rmarkdown files
 
@@ -20,4 +21,4 @@ jobs:
         shell: Rscript {0}
       - name: Render Rmarkdown files
         run:
-          Rscript -e 'rmarkdown::render("lab-01-report.Rmd", output_format = "html_document", output_dir = ".test-output"'
+          Rscript -e 'rmarkdown::render("lab-01-report.Rmd", output_format = "html_document", output_dir = ".test-output")'
