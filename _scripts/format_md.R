@@ -1,6 +1,6 @@
 library(tidyverse)
 
-format_engr = function(x, digits = NULL) {
+format_engr = function(x, digits = 6) {
   x_sci <- formatC(x, digits = digits, format = "e", flag = "#",
                    drop0trailing = FALSE)
   parts <- str_match(x_sci,
@@ -42,6 +42,7 @@ format_md = function(x, digits = NULL,
                                 'engineering'),
                      comma = FALSE,
                      output_format = c("markdown", "latex")) {
+  x = unname(x)
   format = match.arg(format)
   output_format = match.arg(output_format)
   mark = ifelse(comma, ',', '')
@@ -58,22 +59,16 @@ format_md = function(x, digits = NULL,
     }
   }
 
-  if (! is.null(digits)) {
-    digits_p1 <- digits + 1
-    x = signif(x, digits + 1)
-  } else {
-    digits_p1 <- NULL
-  }
+  if (! is.null(digits)) x = signif(x, digits + 1)
   if (format == 'auto') {
-
-    fixed = formatC(x, digits = digits_p1, format = 'fg', flag = '#',
+    fixed = formatC(x, digits = digits + 1, format = 'fg', flag = '#',
                     big.mark = mark)
     sci = formatC(x, digits = digits, format = 'e')
     formatted = ifelse(str_length(fixed) > getOption('scipen') + str_length(sci),
                       fixup_scientific(sci, output_format = output_format),
                       fixed)
   } else if (format == "normal") {
-    formatted = formatC(x, digits = digits_p1, format = 'fg', flag = '#',
+    formatted = formatC(x, digits = digits + 1, format = 'fg', flag = '#',
                         big.mark = mark)
   } else if (format == "scientific") {
     formatted = formatC(x, digits = digits, format = 'e') %>%
