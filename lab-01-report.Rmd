@@ -1,7 +1,7 @@
 ---
 title: 'EES 3310/5310 Lab #1'
 author: "put your name here"
-date: "Monday Jan. 25, 2021."
+date: "Monday Jan. 24, 2022."
 output:
   html_document:
     toc: yes
@@ -25,7 +25,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # useful functions format_md.
 # 
 library(tidyverse)
-library(stringr)
 
 script_dir = "_scripts"
 
