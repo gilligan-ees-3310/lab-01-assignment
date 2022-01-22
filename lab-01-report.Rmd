@@ -1,7 +1,7 @@
 ---
 title: 'EES 3310/5310 Lab #1'
 author: "put your name here"
-date: "Monday Jan. 24, 2022."
+date: "Monday Jan. 24, 2022. Due Wed. Feb. 2, 2022"
 output:
   html_document:
     toc: yes
@@ -43,7 +43,7 @@ day.
 
 ### Part (a)
 
-> (a) A joule (J) is an amount of energy, and a watt (W) is a rate of using 
+> (a) A Joule (J) is an amount of energy, and a watt (W) is a rate of using 
 > energy, defined as 1 Watt = 1 Joule per second (abbreviated 1 W = 1 J/s). 
 > How many Joules of energy are required to run a 100-W light bulb for one day?
 
@@ -60,51 +60,27 @@ joules_per_day = light_bulb_power * seconds_per_hour * hours_per_day
 print(joules_per_day)
 ```
 
-It can be hard to read a long number like that, so we can use R's format 
-command to add commas:
+It can be hard to read a long number like that, so we can use an R function
+I wrote, called `format_md` to add commas:
 
 ```{r formatting_example}
 print(format_md(joules_per_day, comma = TRUE))
 ```
 
-Or if you want to express that in scientific notation, you can do this, using
-the `digits` parameter to specify how many digits of precision to use in 
-printing the number:
+We could also format this using scientific notation:
 ```{r scientific_formatting_example, results="asis"}
 print(format_md(joules_per_day, digits = 2, format = "scientific"))
 ```
 
-When you are writing Markdown text, there are three good ways to express a
-number in scientific notation: If we want to express $1.23 \times 10^{7}$, we
-can do this as
-```
-1.23 &times; 10^7^
-```
-(note the `^` both before and after the exponent and the `;` in `&times;`) 
-or 
-```
-$1.23 \times 10^{7}$
-```
-(note the dollar signs before and after, and the curly braces `{}` around the 
-exponent)
-or 
-```
-`r format_md(1.23E7, format = "scientific")`
-```
-(note the backward quotes `` ` `` before and after the R expression and the `r`
-after the first `` ` ``, which tells RMarkdown that this is R code it should
-evaluate; also note that we used the notation `1.23E7` for the 
-number $1.23 \times 10^{7}$ in R).
-
-We can also integrate the numbers directly into our text, as shown in the 
-answer below (using the `digits` parameter to limit the number of significant 
-digits) we show:
+You can find details about using the `format_md` function in the 
+`README.md` document for this lab. 
 
 **Answer:** A `r light_bulb_power` watt light bulb burns `r light_bulb_power` 
 Joules per second, so the light bulb burns 
 `r format_md(light_bulb_power * seconds_per_hour, digits = 2, format = "normal", comma = TRUE)` 
 Joules per hour and
-`r format_md(joules_per_day, digits = 2, format = "normal", comma = TRUE)` Joules per day.
+`r format_md(joules_per_day, digits = 2, format = "normal", comma = TRUE)` 
+Joules per day.
 
 ### Part (b)
 
@@ -113,28 +89,39 @@ Joules per hour and
 > Assuming that the coal power plant is 30% efficient,
 > how much coal has to be burned to light that light bulb for one day?
 
-```{r example_b}
+
+To solve this problem, I start by putting the numbers into R:
+```{r example_b_initialize}
 joules_heat_per_kg_coal = 3.0E+7 # you tell R about numbers in scientific 
                                  # notation by using `xxEyy` to indicate
                                  # xx times 10 to the yy power.
 efficiency = 0.30
+```
+One kg of coal produces `r format_md(joules_heat_per_kg_coal, format = "scientific")`
+Joules of heat. The efficiency is `r efficiency`, so
+`r 100 * efficiency`% of the heat is turned into electricity.
+```{r example_b_calculation}
 joules_electricity_per_kg_coal = joules_heat_per_kg_coal * efficiency
+```
+
+This means that 1 kg coal produces 
+`r format_md(joules_electricity_per_kg_coal, digits=2, comma=TRUE)` Joules 
+of electricity.
+We can turn this around to figure out how many kg of coal it takes to 
+generate 1 Joule of electricity:
+```{r example_b_calc_2}
 kg_coal_per_joule_electricity = 1 / joules_electricity_per_kg_coal
 kg_coal_per_day = joules_per_day * kg_coal_per_joule_electricity
 ```
+**Answer:**
+One Joule of electricity takes 
+`r format_md(kg_coal_per_joule_electricity, digits=2, format="scientific")` 
+kg of coal, and the 
+`r format_md(joules_per_day, digits=2, comma=TRUE)` Joules of electricity 
+required to power the light bulb for one day takes 
+`r format_md(kg_coal_per_day, digits = 1, comma=TRUE)` kg of coal.
 
-**Answer:** 1 kilogram of coal produces 
-`r format_md(joules_heat_per_kg_coal, digits=2, comma=TRUE)` joules of heat, 
-which is converted into 
-`r format_md(joules_electricity_per_kg_coal, digits=2, comma=TRUE)` joules 
-of electricity.
-We can turn this around and figure that to get 1 joule of electricity takes 
-1 / (`r format_md(joules_electricity_per_kg_coal, digits=2, comma = TRUE)`) 
-= `r format_md(kg_coal_per_joule_electricity, digits=2, format="scientific")` 
-kg of coal, so to get 
-`r format_md(joules_per_day, digits=2, comma=TRUE)` joules of electricity to 
-power the light bulb for one day takes 
-`r format_md(kg_coal_per_day, digits = 2, comma=TRUE)` kg of coal.
+
 
 ## Exercise 1
 
@@ -152,6 +139,10 @@ model of the worked example above._
 
 ```{r ex_1_a}
 # Put your R code here to answer the question
+# 
+# You may use multiiple chunks of R code, with text in between to explain
+# what you are doing.
+# 
 # Hint: In R, 1.3E+8 is how you say 1.3 times 10 to the 8th power.
 ```
 
@@ -161,7 +152,7 @@ _Edit this to put a full answer, following the model of the worked example._
 ### Part 1(b)
 
 > (b) Electricity goes for about $0.05 per kilowatt hour. A kilowatt hour is 
-> just a weird way to write Joules because a watt is a joule per second, and a 
+> just a weird way to write Joules because a watt is a Joule per second, and a 
 > kilowatt hour is the number of Joules one would get from running 1000 W for 
 > one hour (3,600 seconds). 
 > How many Joules of electricity can you get for a dollar?

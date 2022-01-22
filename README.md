@@ -1,49 +1,195 @@
+Assignment for EES 3310/5310 Lab #1
+================
+January 24, 2022
+
 # Assignment for EES 3310/5310 Lab #1
 
-
 <!-- badges: start -->
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+
+[![License: CC BY
+4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 <!-- badges: end -->
 
-The file `lab-01-report.Rmd` is a template for the exercises in Lab #1 to use
-RMarkdown.
+The file `lab-01-report.Rmd` is a template for the exercises in Lab #1
+to use RMarkdown.
 
-The lab is due by 11:59 pm on Wednesday, Feb. 3. 
-**For this first lab assignment**, you will get full credit will be given for 
-trying, even if your R code doesn't work or if you get the answers wrong. 
+The lab is due by 11:59 pm on Wednesday, Feb. 2. **For this first lab
+assignment**, you will get full credit will be given for trying, even if
+your R code doesn’t work or if you get the answers wrong.
 
-**Starting next week**, labs will also be graded for correctness and for 
+**Starting next week**, labs will also be graded for correctness and for
 effective use of RMarkdown in writing up and explaining your answers.
 
-In the report, I give a worked example as a model of how to answer problems
-using RMarkdown.
+In the report, I give a worked example as a model of how to answer
+problems using RMarkdown.
 
-There are three exercises for undergraduates and four for graduate students.
+There are three exercises for undergraduates and four for graduate
+students.
 
 ## Instructions:
 
-* Accept the assignment in GitHub Classroom.
-* On your web browser, go to the repository for the assignment.
-* In RStudio, create a new project, choose "Version Control". Then choose 
-  "Git" and paste the URL for your assignment repository.
-* In your RStudio project, use the template "`lab-01-activities.Rmd`" and 
-  fill in text and R code to answer the questions. 
-  There is a worked example to help you understand what you need to do.
-* When you are done, knit your `.Rmd` file into a `.pdf` file or a 
-  Word (`.docx`) file.
-* Use git to commit your changes (including the edits to `lab-01-activities.Rmd`
-  and the new `.pdf` or `.docx` file) to your local git repository.
-  You can do this from the "Git" tab in RStudio.
-* Push the changes from your local git repository to GitHub. You can do this 
-  using the "Push" button (the green up arrow) in the "Git" tab in RStudio.
-* When you are finished with the lab, or have gotten as far as you can go,
-  go to the Brightspace discussion board and post a comment about your
-  experience using these tools (R, RStudio, and Git) to do these exercises.
-  
-  Comment about what was clear, what was unclear or difficult, and any ideas 
-  you have about what would make it easier to do these kinds of labs in the 
-  future.
+-   Accept the assignment in GitHub Classroom.
 
-As you work on these projects, I advise using git to commit changes frequently 
-as you work and push those commits to GitHub.
+-   On your web browser, go to the repository for the assignment.
 
+-   In RStudio, create a new project, choose “Version Control”. Then
+    choose “Git” and paste the URL for your assignment repository.
+
+-   In your RStudio project, use the template “`lab-01-report.Rmd`” and
+    fill in text and R code to answer the questions. There is a worked
+    example to help you understand what you need to do.
+
+-   When you are done, knit your `.Rmd` file into a `.pdf` file or a
+    Word (`.docx`) file.
+
+-   Use git to commit your changes (including the edits to
+    `lab-01-report.Rmd` and the new `.pdf` or `.docx` file) to your
+    local git repository. You can do this from the “Git” tab in RStudio.
+
+-   Push the changes from your local git repository to GitHub. You can
+    do this using the “Push” button (the green up arrow) in the “Git”
+    tab in RStudio.
+
+-   When you are finished with the lab, or have gotten as far as you can
+    go, go to the Brightspace discussion board and post a comment about
+    your experience using these tools (R, RStudio, and Git) to do these
+    exercises.
+
+    Comment about what was clear, what was unclear or difficult, and any
+    ideas you have about what would make it easier to do these kinds of
+    labs in the future.
+
+As you work on these projects, I advise using git to commit changes
+frequently as you work and push those commits to GitHub.
+
+## Formatting Numbers in R
+
+When you use RMarkdown to write reports, it is helpful to be able to
+format numbers effectively. For this lab and future ones, I have
+supplied you with a convenient function called `format_md`, which allows
+you to take a number in R and format it flexibly to look good in your
+report.
+
+**There are many ways to format numbers in R and using the `format_md`
+function is completely optional.** It’s there if you find it helpful,
+but you don’t have to use it if you don’t want to, or if you prefer to
+use a different way to format numbers.
+
+If you have a variable `x` that contains a number, you can format it
+using `format_md(x)`, and you can specify additional arguments to
+`format_md` to control exactly how the number gets formatted.
+
+Let’s start by assigning the value of π to `x`:
+
+``` r
+x = pi
+format_md(x)
+```
+
+    ## [1] "3.142"
+
+Now, suppose we only want to format the number to only have two
+additional digits after the initial 3:
+
+``` r
+format_md(x, digits = 2)
+```
+
+    ## [1] "3.14"
+
+Here is another example:
+
+``` r
+format_md(x * 10, digits = 2)
+```
+
+    ## [1] "31.4"
+
+``` r
+format_md(x * 100, digits = 4)
+```
+
+    ## [1] "314.16"
+
+``` r
+format_md(x, digits = 10)
+```
+
+    ## [1] "3.1415926536"
+
+We can also format the number using scientific notation:
+
+``` r
+y = pi * 1000000
+format_md(y, digits = 2, format = "scientific")
+```
+
+    ## [1] "3.14&times;10^6^"
+
+Or we can format long numbers to put commas separating the thousands,
+millions, etc:
+
+``` r
+format_md(y, comma = TRUE)
+```
+
+    ## [1] "3,141,593"
+
+### Different ways to format numbers
+
+If you want to express a number in scientific notation, you can do this,
+using `format_md`. In the example below `1E6` is a convenient way to
+write 10<sup>6</sup> in R. You can also write `5E10` to write 5 ×
+10<sup>10</sup>, and so forth.
+
+``` r
+x = pi * 1E6
+print(format_md(x, digits = 2, format = "scientific"))
+```
+
+\[1\] “3.14×10<sup>6</sup>”
+
+When you are writing Markdown text, there are three good ways to express
+a number in scientific notation: If we want to express
+1.23 × 10<sup>7</sup>, we can do this as
+
+    1.23 &times; 10^7^
+
+(note the `^` both before and after the exponent and the `;` in
+`&times;`) or
+
+    $1.23 \times 10^{7}$
+
+(note the dollar signs before and after, and the curly braces `{}`
+around the exponent) or
+
+``` r
+`r format_md(1.23E7, digits=2, format = "scientific")`
+```
+
+which produces 1.23×10<sup>7</sup>. Note the backward quotes `` ` ``
+before and after the R expression and the `r` after the first `` ` ``,
+which tells RMarkdown that this is R code it should evaluate; also note
+that we used the notation `1.23E7` for the number 1.23 × 10<sup>7</sup>
+in R.
+
+We can also tell R to put the numbers directly into our text so we don’t
+have to type them. If we assign a value to the variable `x` like this
+
+``` r
+x = 1.23456E7
+```
+
+then later in our text, we can put a formatted number into the middle of
+our text.
+
+This RMarkdown text
+
+``` text
+The value of _x_ is `r format_md(x, digits = 2, format = "scientific")` and
+the value of pi is `r format_md(pi, digits = 2)`.
+```
+
+becomes the following:
+
+> The value of *x* is 1.23×10<sup>7</sup> and the value of pi is 3.14.
