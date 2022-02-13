@@ -152,9 +152,9 @@ _Edit this to put a full answer, following the model of the worked example._
 ### Part 1(b)
 
 > (b) Electricity goes for about $0.05 per kilowatt hour. A kilowatt hour is 
-> just a weird way to write Joules because a watt is a Joule per second, and a 
-> kilowatt hour is the number of Joules one would get from running 1000 W for 
-> one hour (3,600 seconds). 
+> just a different way to express energy, because a Watt is a Joule per second, 
+> and a kilowatt hour is the number of Joules (the amount of energy) one would 
+> get from running 1000 Watts for one hour (3,600 seconds). 
 > How many Joules of electricity can you get for a dollar?
 
 _Put your own text and R code here to answer Exercise 1(b). Do the calculation
